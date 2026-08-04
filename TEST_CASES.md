@@ -66,3 +66,56 @@ Verify that a user can successfully book a room by selecting valid stay dates an
 - The Book This Room form is replaced by a message: "Booking Confirmed
   Your booking has been confirmed for the following dates: 2026-08-10 - 2026-08-15"
 - In the network tab, the POST /booking request returns a status code 201 Created
+
+## TC-03: Main Navigation Bar (In-Page Navigation)
+
+### TC-03 Description
+
+Verify that each main navigation bar element navigates to the corresponding section
+
+### TC-03 Preconditions
+
+- The application is up and running at [https://automationintesting.online/](https://automationintesting.online/).
+
+- Main Navigation Bar is present and visible on the top of the page
+
+### TC-03 Test Steps & Expected Results
+
+1. Click the **Rooms** link.
+   **Expected:** The page smoothly scrolls to the **Rooms** section.
+2. Click the **Booking** link.
+   **Expected:** The page smoothly scrolls to the **Booking** section.
+3. Click the **Amenities** link.
+   **Expected:** The page smoothly scrolls to the **Amenities** section.
+4. Click the **Location** link.
+   **Expected:** The page smoothly scrolls to the **Location** section.
+5. Click the **Contact** link.
+   **Expected:** The page smoothly scrolls to the **Contact** section.
+
+### TC-03 Expected Result
+
+- Expected: Page smoothly scrolls to the Rooms section.
+- Expected: Page smoothly scrolls to the Boking section.
+- Expected: Page smoothly scrolls to the Amenities section.
+- Expected: Page smoothly scrolls to the Location section.
+- Expected: Page smoothly scrolls to the Contact section.
+
+## TC-04: Navigation to Admin Login Page
+
+### TC-04 Description
+
+Verify that clicking the Admin link in the main navigation bar redirects the user to the Admin Login page.
+
+### TC-04 Preconditions
+
+- The application is up and running at [https://automationintesting.online/](https://automationintesting.online/).
+
+- Main Navigation Bar is present and visible on the top of the page
+
+### TC-04 Test Steps
+
+1. Click the **Admin** link
+
+### TC-04 Expected result
+
+- The Admin login form is displayed, containing the **Username** field, **Password** field, and **Login** button.
