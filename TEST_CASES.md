@@ -92,14 +92,6 @@ Verify that each main navigation bar element navigates to the corresponding sect
 5. Click the **Contact** link.
    **Expected:** The page smoothly scrolls to the **Contact** section.
 
-### TC-03 Expected Result
-
-- Expected: Page smoothly scrolls to the Rooms section.
-- Expected: Page smoothly scrolls to the Boking section.
-- Expected: Page smoothly scrolls to the Amenities section.
-- Expected: Page smoothly scrolls to the Location section.
-- Expected: Page smoothly scrolls to the Contact section.
-
 ## TC-04: Navigation to Admin Login Page
 
 ### TC-04 Description
@@ -117,5 +109,7 @@ Verify that clicking the Admin link in the main navigation bar redirects the use
 1. Click the **Admin** link
 
 ### TC-04 Expected result
+
+- The user is redirected to the Admin Login page (`#/admin`).
 
 - The Admin login form is displayed, containing the **Username** field, **Password** field, and **Login** button.
