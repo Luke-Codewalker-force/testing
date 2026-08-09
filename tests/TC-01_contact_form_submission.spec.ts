@@ -1,9 +1,10 @@
 import { test, expect } from "../fixtures/page-object.fixture";
+import { ContactFormData } from "../pages/home/types";
 
 test.describe("Contact Form Submission", () => {
   test("Successful contact form submission", async ({ homePage }) => {
     // Arrange
-    const contactData = {
+    const contactData: ContactFormData = {
       name: "Jan Kowalski",
       email: "jan.kowalski@example.com",
       phone: "12345678901",
