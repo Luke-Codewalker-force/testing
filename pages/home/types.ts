@@ -5,3 +5,8 @@ export type ContactFormData = {
   subject: string;
   description: string;
 };
+
+export type BookingDates = {
+  checkIn: string;
+  checkOut: string;
+};
