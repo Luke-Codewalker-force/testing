@@ -16,15 +16,15 @@ test.describe("Contact Form Submission", () => {
     await homePage.goto();
 
     // Act
-    await homePage.fillContactForm(contactData);
-    await homePage.submitContactForm();
+    await homePage.contactFormComponent.fillContactForm(contactData);
+    await homePage.contactFormComponent.submitContactForm();
 
     // Assert
     await expect(
-      homePage.contactFormSection.getByRole("form"),
+      homePage.contactFormComponent.contactFormSection.getByRole("form"),
     ).not.toBeVisible();
 
-    await expect(homePage.messageElements).toHaveText([
+    await expect(homePage.contactFormComponent.messageElements).toHaveText([
       `Thanks for getting in touch ${contactData.name}!`,
       "We'll get back to you about",
       contactData.subject,
