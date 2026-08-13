@@ -24,6 +24,7 @@ Verify that a user can successfully book a room by selecting valid stay dates an
 
 ## TC-02 Expected result
 
+- Page URL changes to: [https://automationintesting.online/reservation/{roomId}?checkin=2026-08-10&checkout=2026-08-15](https://automationintesting.online/reservation/{roomId}checkin=2026-08-10&checkout=2026-08-15)
 - The form is submitted successfully
 - The Book This Room form is replaced by a message: "Booking Confirmed
   Your booking has been confirmed for the following dates: 2026-08-10 - 2026-08-15"
