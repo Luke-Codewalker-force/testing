@@ -1,7 +1,7 @@
 import { fakerPL as faker } from "@faker-js/faker";
 import { BookingFormData } from "../pages/booking/types";
 
-export type BookingDataPayload = BookingFormData & {
+type BookingDataPayload = BookingFormData & {
   checkIn: string;
   checkOut: string;
 };
