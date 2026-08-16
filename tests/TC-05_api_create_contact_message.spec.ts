@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { ContactFactory } from "../factories/contact-factory";
 
 test.describe("API Tests - Contact Messages", () => {
-  test.only("TC-05: Should successfully submit contact message via POST /message/", async ({
+  test("TC-05: Should successfully submit contact message via POST /message/", async ({
     request,
   }) => {
     // Arrange
