@@ -1,8 +1,8 @@
 import { BookingFactory } from "../factories/booking-factory";
 import { test, expect } from "../fixtures/page-object.fixture";
 
-test.describe("Description placeholder", () => {
-  test("Test name placeholder", async ({ homePage, bookingPage }) => {
+test.describe("Room booking", () => {
+  test("Successful room booking", async ({ homePage, bookingPage }) => {
     // Arrange
     const bookingData = BookingFactory.createBookingData();
 
