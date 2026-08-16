@@ -2,7 +2,7 @@ import { BookingFactory } from "../factories/booking-factory";
 import { test, expect } from "../fixtures/page-object.fixture";
 
 test.describe("Description placeholder", () => {
-  test.only("Test name placeholder", async ({ homePage, bookingPage }) => {
+  test("Test name placeholder", async ({ homePage, bookingPage }) => {
     // Arrange
     const bookingData = BookingFactory.createBookingData();
 
