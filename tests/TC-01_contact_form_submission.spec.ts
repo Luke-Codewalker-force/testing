@@ -1,17 +1,11 @@
+import { ContactFactory } from "../factories/contact-factory";
 import { test, expect } from "../fixtures/page-object.fixture";
 import { ContactFormData } from "../pages/home/types";
 
 test.describe("Contact Form Submission", () => {
   test("Successful contact form submission", async ({ homePage }) => {
     // Arrange
-    const contactData: ContactFormData = {
-      name: "Jan Kowalski",
-      email: "jan.kowalski@example.com",
-      phone: "12345678901",
-      subject: "Booking inquiry",
-      description:
-        "Hello, I would like to inquire about room availability for the summer. Best regards.",
-    };
+    const contactData = ContactFactory.createContactData();
 
     await homePage.goto();
 
