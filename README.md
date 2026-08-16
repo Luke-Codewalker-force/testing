@@ -8,20 +8,20 @@ An automated E2E and API testing project built for the [Restful-Booker Platform]
 
 ## 🛠️ Tech Stack & Architecture
 
-* **Automation Engine:** Playwright
-* **Language:** Javascript & TypeScript
-* **Design Pattern:** Page Object Model (POM) with custom Playwright Fixtures for clean dependency injection.
-* **CI/CD:** GitHub Actions workflow configured to run test suites on code push.
+- **Automation Engine:** Playwright
+- **Language:** Javascript & TypeScript
+- **Design Pattern:** Page Object Model (POM) with custom Playwright Fixtures for clean dependency injection.
+- **CI/CD:** GitHub Actions workflow configured to run test suites on code push.
 
 ---
 
 ## 📋 Project Structure & QA Documentation
 
-The automation phase was preceded by manual analysis and exploratory testing. All structured test scenarios are documented in a separate file:
-👉 **[View Test Cases](./TEST_CASES.md)**
+The automation phase was preceded by manual analysis and exploratory testing. All structured test scenarios are documented in a separate files inside folder:
+👉 **[View Test Cases](./test-cases)**
 
-* `@smoke` – Basic happy path verification for critical paths.
-* `@regression` – Detailed functional validation, boundary tests, and API verification.
+- `@smoke` – Basic happy path verification for critical paths.
+- `@regression` – Detailed functional validation, boundary tests, and API verification.
 
 ---
 
@@ -43,6 +43,8 @@ npm install
 npx playwright install
 ```
 
+// TODO: add these scripts to package.json and tags to already written tests
+
 ### 2. Run scripts
 
 ```bash
@@ -57,3 +59,4 @@ npm run test:regression
 
 # Open Playwright Interactive UI Mode for local debugging
 npm run test:ui
+```
