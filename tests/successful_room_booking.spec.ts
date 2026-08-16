@@ -18,7 +18,7 @@ test.describe("Room booking", () => {
       });
       await homePage.bookingFormComponent.bookNowLink.click();
 
-      await bookingPage.thisPage.waitForURL("**/reservation/**");
+      await bookingPage.waitForPageLoaded("**/reservation/**");
 
       await bookingPage.openBookingForm();
 
