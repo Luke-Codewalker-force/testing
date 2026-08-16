@@ -1,35 +1,36 @@
+import { BookingFactory } from "../factories/booking-factory";
 import { test, expect } from "../fixtures/page-object.fixture";
 
 test.describe("Description placeholder", () => {
-  test("Test name placeholder", async ({ homePage, bookingPage }) => {
+  test.only("Test name placeholder", async ({ homePage, bookingPage }) => {
     // Arrange
-    const checkinDate = "2026-08-24";
-    const checkoutDate = "2026-08-31";
+    const bookingData = BookingFactory.createBookingData();
 
     // Act
     await homePage.goto();
 
     await homePage.bookingFormComponent.checkAvailability({
-      checkIn: checkinDate,
-      checkOut: checkoutDate,
+      checkIn: bookingData.checkIn,
+      checkOut: bookingData.checkOut,
     });
     await homePage.bookingFormComponent.bookNowLink.click();
 
     await bookingPage.thisPage.waitForURL("**/reservation/**");
+
     await bookingPage.openBookingForm();
 
     await bookingPage.fillBookingForm({
-      firstName: "John",
-      lastName: "Doe",
-      email: "john.doe@example.com",
-      phone: "123-456-7890",
+      firstName: bookingData.firstName,
+      lastName: bookingData.lastName,
+      email: bookingData.email,
+      phone: bookingData.phone,
     });
     await bookingPage.submitBookingForm();
 
     // Assert
     await expect(bookingPage.bookingConfirmationMessage).toHaveText([
       "Your booking has been confirmed for the following dates:",
-      `2026-08-24 - 2026-08-31`,
+      `${bookingData.checkIn} - ${bookingData.checkOut}`,
     ]);
   });
 });
