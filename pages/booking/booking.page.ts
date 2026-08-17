@@ -54,18 +54,8 @@ export class BookingPage {
     await this.openBookingFormButton.click();
   }
 
-  async waitForPageLoaded(
-    url: string | RegExp | URLPattern | ((url: URL) => boolean),
-    options?:
-      | {
-          signal?: AbortSignal | undefined;
-          timeout?: number | undefined;
-          waitUntil?:
-            "load" | "domcontentloaded" | "networkidle" | "commit" | undefined;
-        }
-      | undefined,
-  ): Promise<void> {
-    await this.page.waitForURL(url, options);
+  async waitForPageLoaded(): Promise<void> {
+    await this.page.waitForURL("**/reservation/**");
   }
 
   get bookingConfirmationMessage(): Locator {
