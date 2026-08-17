@@ -3,7 +3,7 @@ import { test, expect } from "../fixtures/page-object.fixture";
 import { epic, feature } from "allure-js-commons";
 
 test.describe("Room booking", () => {
-  test.only(
+  test(
     "Successful room booking",
     { tag: ["@TC-02"] },
     async ({ homePage, bookingPage }) => {

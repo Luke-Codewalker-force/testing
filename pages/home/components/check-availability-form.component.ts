@@ -2,21 +2,21 @@ import { Locator, Page } from "@playwright/test";
 import { BookingDates } from "../types";
 
 export class CheckBookingAvailabilityFormComponent {
-  private readonly bookingAvailabiltySectionLocator: Locator;
+  private readonly bookingAvailabilitySectionLocator: Locator;
   private readonly checkInInputLocator: Locator;
   private readonly checkOutInputLocator: Locator;
   private readonly checkAvailabilityButton: Locator;
   private readonly bookNowLinkLocator: Locator;
 
   constructor(private page: Page) {
-    this.bookingAvailabiltySectionLocator = this.page.locator("#booking");
+    this.bookingAvailabilitySectionLocator = this.page.locator("#booking");
     // TODO: Change to getByLabel("check-in-label") once DEV fixes missing input ID
-    this.checkInInputLocator = this.bookingAvailabiltySectionLocator
+    this.checkInInputLocator = this.bookingAvailabilitySectionLocator
       .locator("div", { hasText: "Check In", hasNotText: "Check Out" })
       .getByRole("textbox");
 
     // TODO: Change to getByLabel("checkout-label") once DEV fixes missing input ID
-    this.checkOutInputLocator = this.bookingAvailabiltySectionLocator
+    this.checkOutInputLocator = this.bookingAvailabilitySectionLocator
       .locator("div", { hasText: "Check Out", hasNotText: "Check In" })
       .getByRole("textbox");
 
@@ -39,7 +39,7 @@ export class CheckBookingAvailabilityFormComponent {
     return this.checkInInputLocator;
   }
   get bookingAvailabilitySection(): Locator {
-    return this.bookingAvailabiltySectionLocator;
+    return this.bookingAvailabilitySectionLocator;
   }
 
   get bookNowLink(): Locator {
