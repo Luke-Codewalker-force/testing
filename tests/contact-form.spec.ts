@@ -2,10 +2,10 @@ import { ContactFactory } from "../factories/contact-factory";
 import { test, expect } from "../fixtures/page-object.fixture";
 import { ContactFormData } from "../pages/home/types";
 
-test.describe("Contact Form Submission", () => {
+test.describe("Contact Form", () => {
   test(
-    "Successful contact form submission",
-    { tag: ["@TC-01"] },
+    "TC-01:Successful contact form submission",
+    { tag: ["@smoke, @regression"] },
     async ({ homePage }) => {
       // Arrange
       const contactData = ContactFactory.createContactData();
