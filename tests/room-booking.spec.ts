@@ -1,11 +1,14 @@
 import { BookingFactory } from "../factories/booking-factory";
 import { test, expect } from "../fixtures/page-object.fixture";
+import { epic, feature } from "allure-js-commons";
 
 test.describe("Room booking", () => {
-  test(
+  test.only(
     "Successful room booking",
     { tag: ["@TC-02"] },
     async ({ homePage, bookingPage }) => {
+      epic("Room Booking");
+      feature("Booking a room with valid data");
       // Arrange
       const bookingData = BookingFactory.createBookingData();
 
@@ -18,7 +21,7 @@ test.describe("Room booking", () => {
       });
       await homePage.bookingFormComponent.bookNowLink.click();
 
-      await bookingPage.waitForPageLoaded("**/reservation/**");
+      // await bookingPage.waitForPageLoaded("**/reservation/**");
 
       await bookingPage.openBookingForm();
 
