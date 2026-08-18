@@ -1,21 +1,23 @@
 import { fakerPL as faker } from "@faker-js/faker";
-import { BookingFormData } from "../pages/booking/types";
+import { BookingDataPayload } from "../pages/booking/types";
 
-type BookingDataPayload = BookingFormData & {
-  checkIn: string;
-  checkOut: string;
-};
+const DAYS_UNTIL_FIRST_AVAILABLE = 15;
+const BOOKING_START_OFFSET_DAYS = { min: 365, max: 1460 };
+const STAY_DURATION_DAYS = { min: 5, max: 21 };
+const MILLISECONDS_PER_DAY = 86_400_000;
 
 export class BookingFactory {
   static createBookingData(
     overrides: Partial<BookingDataPayload> = {},
   ): BookingDataPayload {
     const checkInDate = faker.date.soon({
-      days: { min: 365, max: 1460 },
-      refDate: new Date(Date.now() + 15 * 86_400_000),
+      days: BOOKING_START_OFFSET_DAYS,
+      refDate: new Date(
+        Date.now() + DAYS_UNTIL_FIRST_AVAILABLE * MILLISECONDS_PER_DAY,
+      ), // Ensure check-in is at least 15 days from now
     });
     const checkOutDate = faker.date.soon({
-      days: { min: 5, max: 21 },
+      days: STAY_DURATION_DAYS,
       refDate: checkInDate,
     });
 
