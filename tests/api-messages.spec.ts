@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test";
 import { ContactFactory } from "../factories/contact-factory";
+import { test, expect } from "../fixtures/page-object.fixture";
 
 test.describe("API Tests - Contact Messages", () => {
   test(
