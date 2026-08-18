@@ -1,4 +1,4 @@
-import { BookingFactory } from "../factories/booking-factory";
+import { BookingFactory } from "../factories/booking.factory";
 import { test, expect } from "../fixtures/page-object.fixture";
 import { epic, feature } from "allure-js-commons";
 
