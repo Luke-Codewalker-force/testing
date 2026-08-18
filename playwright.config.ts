@@ -1,4 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
+import { loadEnvFile } from "node:process";
+
+loadEnvFile("./.env");
 
 /**
  * Read environment variables from file.
