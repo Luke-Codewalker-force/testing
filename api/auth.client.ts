@@ -1,4 +1,4 @@
-import { APIRequestContext, expect } from "@playwright/test";
+import { APIRequestContext } from "@playwright/test";
 
 export class AuthClient {
   constructor(private request: APIRequestContext) {}
