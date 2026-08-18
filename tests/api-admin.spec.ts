@@ -18,7 +18,7 @@ test.describe("API Tests - Admin", () => {
     },
   );
 
-  test.only("Should fail with incorrect credentials via POST /api/auth/login", async ({
+  test("Should fail with incorrect credentials via POST /api/auth/login", async ({
     authClient,
   }) => {
     // Act
