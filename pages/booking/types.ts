@@ -4,3 +4,8 @@ export type BookingFormData = {
   email: string;
   phone: string;
 };
+
+export type BookingDataPayload = BookingFormData & {
+  checkIn: string;
+  checkOut: string;
+};
