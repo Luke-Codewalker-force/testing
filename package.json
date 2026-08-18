@@ -28,7 +28,6 @@
     "allure-playwright": "^3.10.2",
     "eslint": "^10.8.1",
     "prettier": "^3.9.6",
-    "prettier-eslint": "^17.1.1",
-    "zod": "^4.4.3"
+    "prettier-eslint": "^17.1.1"
   }
 }
