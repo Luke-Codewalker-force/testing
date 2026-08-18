@@ -1,4 +1,4 @@
-import { ContactFactory } from "../factories/contact-factory";
+import { ContactFactory } from "../factories/contact.factory";
 import { test, expect } from "../fixtures/page-object.fixture";
 
 test.describe("API Tests - Contact Messages", () => {

@@ -1,7 +1,7 @@
 import { test as base } from "@playwright/test";
 import { HomePage } from "../pages/home/home.page";
 import { BookingPage } from "../pages/booking/booking.page";
-import { AuthClient } from "../api/auth-client";
+import { AuthClient } from "../api/auth.client";
 
 type Fixtures = {
   // pages
