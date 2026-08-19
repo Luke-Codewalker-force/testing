@@ -74,3 +74,59 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
+
+      - name: Post Allure Report Link to Jira Issue
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && !cancelled()
+        env:
+          JIRA_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_USER: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          REPORT_URL: "https://luke-codewalker-force.github.io/testing/"
+        run: |
+          # Determine source branch name
+          TARGET_BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
+          
+          # Extract Jira issue key (e.g., SCRUM-1, PROJ-123) from branch name
+          ISSUE_KEY=$(echo "$TARGET_BRANCH" | grep -oE '[A-Z]+-[0-9]+' | head -n 1)
+
+          if [ -z "$ISSUE_KEY" ]; then
+            echo "No Jira issue key detected in branch: $TARGET_BRANCH. Skipping Jira comment."
+            exit 0
+          fi
+
+          echo "Posting report link to Jira issue: $ISSUE_KEY"
+
+          curl --request POST \
+            --url "${JIRA_URL}/rest/api/3/issue/${ISSUE_KEY}/comment" \
+            --user "${JIRA_USER}:${JIRA_TOKEN}" \
+            --header "Accept: application/json" \
+            --header "Content-Type: application/json" \
+            --data '{
+              "body": {
+                "type": "doc",
+                "version": 1,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Automated tests finished. View latest Allure Report: "
+                      },
+                      {
+                        "type": "text",
+                        "text": "'"${REPORT_URL}"'",
+                        "marks": [
+                          {
+                            "type": "link",
+                            "attrs": {
+                              "href": "'"${REPORT_URL}"'"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }'
