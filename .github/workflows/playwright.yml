@@ -80,22 +80,22 @@ jobs:
         env:
           JIRA_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER: ${{ secrets.JIRA_USER_EMAIL }}
-          JIRA_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_TOKEN: ${{ secrets.JIRA_API_TOKEN }}  
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
           REPORT_URL: "https://luke-codewalker-force.github.io/testing/"
         run: |
-          # Determine source branch name
-          TARGET_BRANCH="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
-          
-          # Extract Jira issue key (e.g., SCRUM-1, PROJ-123) from branch name
-          ISSUE_KEY=$(echo "$TARGET_BRANCH" | grep -oE '[A-Z]+-[0-9]+' | head -n 1)
+          # 1. Search for Jira issue key in commit message first, then in branch name
+          ISSUE_KEY=$(echo "$COMMIT_MSG $GITHUB_REF_NAME" | grep -oE '[A-Z]+-[0-9]+' | head -n 1)
 
+          # 2. Skip if no Jira key is found
           if [ -z "$ISSUE_KEY" ]; then
-            echo "No Jira issue key detected in branch: $TARGET_BRANCH. Skipping Jira comment."
+            echo "No Jira issue key detected in commit message or branch name. Skipping Jira comment."
             exit 0
           fi
 
           echo "Posting report link to Jira issue: $ISSUE_KEY"
 
+          # 3. Post comment to Jira issue via REST API
           curl --request POST \
             --url "${JIRA_URL}/rest/api/3/issue/${ISSUE_KEY}/comment" \
             --user "${JIRA_USER}:${JIRA_TOKEN}" \
