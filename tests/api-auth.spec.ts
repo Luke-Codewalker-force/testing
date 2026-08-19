@@ -1,10 +1,18 @@
 import { test, expect } from "../fixtures/page-object.fixture";
+import { issue, severity, feature } from "allure-js-commons";
 
 test.describe("API Tests - Admin", () => {
   test(
     "Should successfully login with valid credentials via POST /api/admin/login",
-    { tag: ["@regression", "@smoke"] },
+    { tag: ["@smoke", "@regression", "@api"] },
     async ({ authClient }) => {
+      issue(
+        "https://lukaszkowalczykdev.atlassian.net/browse/SCRUM-1",
+        "SCRUM-1",
+      );
+      severity("critical");
+      feature("Authentication API");
+
       // Act
       const response = await authClient.login();
 
