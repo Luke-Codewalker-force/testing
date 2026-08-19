@@ -80,7 +80,7 @@ jobs:
         env:
           JIRA_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER: ${{ secrets.JIRA_USER_EMAIL }}
-          JIRA_TOKEN: ${{ secrets.JIRA_API_TOKEN }}  
+          JIRA_TOKEN: ${{ secrets.JIRA_TOKEN }}  
           COMMIT_MSG: ${{ github.event.head_commit.message }}
           REPORT_URL: "https://luke-codewalker-force.github.io/testing/"
         run: |
