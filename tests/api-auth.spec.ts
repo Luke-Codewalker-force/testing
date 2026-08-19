@@ -29,6 +29,10 @@ test.describe("API Tests - Admin", () => {
   test("Should fail with incorrect credentials via POST /api/auth/login", async ({
     authClient,
   }) => {
+    issue("https://lukaszkowalczykdev.atlassian.net/browse/SCRUM-1", "SCRUM-1");
+    severity("critical");
+    feature("Authentication API");
+
     // Act
     const response = await authClient.login("invalidUser", "invalidPassword");
 
