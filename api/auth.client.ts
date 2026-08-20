@@ -3,10 +3,7 @@ import { APIRequestContext } from "@playwright/test";
 export class AuthClient {
   constructor(private request: APIRequestContext) {}
 
-  async login(
-    username = process.env.ADMIN_LOGIN,
-    password = process.env.ADMIN_PASSWORD,
-  ) {
+  async login(username?: string, password?: string) {
     const response = await this.request.post("/api/auth/login", {
       data: { username, password },
     });

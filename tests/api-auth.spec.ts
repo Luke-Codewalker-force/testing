@@ -7,8 +7,8 @@ test.describe("API Tests - Admin", () => {
     { tag: ["@smoke", "@regression", "@api"] },
     async ({ authClient }) => {
       issue(
-        "https://lukaszkowalczykdev.atlassian.net/browse/SCRUM-1",
-        "SCRUM-1",
+        "https://lukaszkowalczykdev.atlassian.net/browse/SCRUM-5",
+        "SCRUM-5",
       );
       severity("critical");
       feature("Authentication API");
@@ -26,25 +26,49 @@ test.describe("API Tests - Admin", () => {
     },
   );
 
-  test("Should fail with incorrect credentials via POST /api/auth/login", async ({
-    authClient,
-  }) => {
-    issue("https://lukaszkowalczykdev.atlassian.net/browse/SCRUM-1", "SCRUM-1");
-    severity("critical");
-    feature("Authentication API");
+  test(
+    "Should fail with incorrect credentials via POST /api/auth/login",
+    { tag: ["@smoke", "@regression", "@api"] },
+    async ({ authClient }) => {
+      issue(
+        "https://lukaszkowalczykdev.atlassian.net/browse/SCRUM-6",
+        "SCRUM-6",
+      );
+      severity("critical");
+      feature("Authentication API");
 
-    // Act
-    const response = await authClient.login("invalidUser", "invalidPassword");
+      // Act
+      const response = await authClient.login("invalidUser", "invalidPassword");
 
-    // Assert
-    expect(response.status()).toBe(401);
-    expect(response.headers()["content-type"]).toContain("application/json");
+      // Assert
+      expect(response.status()).toBe(401);
+      expect(response.headers()["content-type"]).toContain("application/json");
 
-    const responseBody = await response.json();
-    expect(responseBody).toEqual(
-      expect.objectContaining({
-        error: "Invalid credentials",
-      }),
-    );
-  });
+      const responseBody = await response.json();
+      expect(responseBody).toEqual(
+        expect.objectContaining({
+          error: "Invalid credentials",
+        }),
+      );
+    },
+  );
+
+  test(
+    "Should reject request with empty payload",
+    { tag: ["@smoke", "@regression", "@api"] },
+    async ({ authClient }) => {
+      issue(
+        "https://lukaszkowalczykdev.atlassian.net/browse/SCRUM-7",
+        "SCRUM-7",
+      );
+      severity("critical");
+      feature("Authentication API");
+
+      // Act
+      const response = authClient.login();
+
+      // Assert
+      expect((await response).status).toBe(401);
+    },
+  );
 });
