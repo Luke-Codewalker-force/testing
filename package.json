@@ -11,7 +11,8 @@
     "lint:fix": "eslint . --ext .ts,.js --fix",
     "allure:generate": "allure generate allure-results --clean -o allure-report",
     "allure:open": "allure open allure-report",
-    "allure:serve": "allure serve allure-results"
+    "allure:serve": "allure serve allure-results",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -26,12 +27,14 @@
   },
   "homepage": "https://github.com/Luke-Codewalker-force/testing#readme",
   "devDependencies": {
+    "@commitlint/cli": "^21.2.2",
     "@faker-js/faker": "^10.5.0",
     "@playwright/test": "^1.62.1",
     "@types/node": "^26.1.2",
     "allure-commandline": "^2.43.0",
     "allure-playwright": "^3.10.2",
     "eslint": "^10.8.1",
+    "husky": "^9.1.7",
     "prettier": "^3.9.6",
     "prettier-eslint": "^17.1.1"
   },
