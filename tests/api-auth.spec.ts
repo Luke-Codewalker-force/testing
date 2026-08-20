@@ -1,3 +1,4 @@
+import { AuthData } from "../api/types";
 import { test, expect } from "../fixtures/page-object.fixture";
 import { issue, severity, feature } from "allure-js-commons";
 
@@ -13,8 +14,12 @@ test.describe("API Tests - Admin", () => {
       severity("critical");
       feature("Authentication API");
 
+      // Arrange
+      const username = process.env.ADMIN_LOGIN;
+      const password = process.env.ADMIN_PASSWORD;
+
       // Act
-      const response = await authClient.login();
+      const response = await authClient.login({ username, password });
 
       // Assert
       expect(response.status()).toBe(200);
@@ -37,8 +42,14 @@ test.describe("API Tests - Admin", () => {
       severity("critical");
       feature("Authentication API");
 
+      // Arrange
+      const invalidLoginData: AuthData = {
+        username: "invalidUser",
+        password: "invalidPassword",
+      };
+
       // Act
-      const response = await authClient.login("invalidUser", "invalidPassword");
+      const response = await authClient.login(invalidLoginData);
 
       // Assert
       expect(response.status()).toBe(401);
@@ -65,10 +76,10 @@ test.describe("API Tests - Admin", () => {
       feature("Authentication API");
 
       // Act
-      const response = authClient.login();
+      const response = authClient.login({});
 
       // Assert
-      expect((await response).status).toBe(401);
+      expect((await response).status()).toBe(401);
     },
   );
 });
