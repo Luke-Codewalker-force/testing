@@ -1,0 +1,20 @@
+#!/bin/sh
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+
+# Get current branch name
+BRANCH_NAME=$(git branch --show-current 2>/dev/null)
+
+# Extract ticket key (e.g. SCRUM-7)
+TICKET=$(echo "$BRANCH_NAME" | grep -oE '[A-Z]+-[0-9]+' | head -n 1)
+
+# Apply prefix if ticket exists and commit is not a merge
+if [ -n "$TICKET" ] && [ "$COMMIT_SOURCE" != "merge" ]; then
+  CURRENT_MSG=$(cat "$COMMIT_MSG_FILE")
+  
+  # Only prepend if ticket is not already present
+  if ! echo "$CURRENT_MSG" | grep -q "$TICKET"; then
+    echo "$TICKET: $CURRENT_MSG" > "$COMMIT_MSG_FILE"
+  fi
+fi
