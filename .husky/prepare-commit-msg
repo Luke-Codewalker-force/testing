@@ -1,0 +1,11 @@
+#!/bin/sh
+BRANCH_NAME=$(git symbolic-ref --short HEAD 2>/dev/null)
+TICKET=$(echo "$BRANCH_NAME" | grep -oE '[A-Z]+-[0-9]+')
+COMMIT_MSG_FILE=$1
+
+if [ -n "$TICKET" ]; then
+  MSG=$(cat "$COMMIT_MSG_FILE")
+  if ! echo "$MSG" | grep -q "$TICKET"; then
+    echo "$TICKET: $MSG" > "$COMMIT_MSG_FILE"
+  fi
+fi
