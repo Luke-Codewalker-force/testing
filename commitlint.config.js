@@ -1,7 +1,7 @@
 module.exports = {
   parserPreset: {
     parserOpts: {
-      // Wyrażenie regularne dopasowujące np. "[SCRUM-7] Opis zmian"
+      // regular expression e.g., "[SCRUM-7] changes description"
       headerPattern: /^\[([A-Z]+-\d+)\]\s+(.*)$/,
       headerCorrespondence: ["ticket", "subject"],
     },
