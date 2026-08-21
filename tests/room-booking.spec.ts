@@ -5,7 +5,7 @@ import { epic, feature } from "allure-js-commons";
 test.describe("Room booking", () => {
   test(
     "Successful room booking",
-    { tag: ["@TC-02"] },
+    { tag: ["@TC-02, @room-booking"] },
     async ({ homePage, bookingPage }) => {
       epic("Room Booking");
       feature("Booking a room with valid data");
