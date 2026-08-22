@@ -24,21 +24,22 @@ const negativeLoginTestCases: LoginTestCase[] = [
   },
   {
     rule: "REQ-AUTH-02",
-    description: "reject login when password does not match username",
+    description: "Should reject login when password does not match username",
     payload: { username: "admin", password: "wrong_password" },
     expectedStatus: 401,
     expectedError: "Invalid credentials",
   },
   {
     rule: "REQ-AUTH-03",
-    description: "reject login when username does not exist in the database",
+    description:
+      "Should reject login when username does not exist in the database",
     payload: { username: "ghost_user", password: "password123" },
     expectedStatus: 401,
     expectedError: "Invalid credentials",
   },
   {
     rule: "REQ-AUTH-04",
-    description: "reject request when username field is omitted",
+    description: "Should reject request when username field is omitted",
     payload: { password: "password123" },
     expectedStatus: 401,
     expectedError: "Invalid credentials",
