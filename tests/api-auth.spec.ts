@@ -82,6 +82,39 @@ test.describe("API Tests - Admin", () => {
     },
   );
 
+  test(
+    "Should successfully validate valid token",
+    { tag: ["@smoke", "@regression", "@api", "@auth"] },
+    async ({ authClient }) => {
+      issue(
+        "https://lukaszkowalczykdev.atlassian.net/browse/SCRUM-5",
+        "SCRUM-5",
+      );
+      severity("critical");
+      feature("Authentication API");
+
+      // Arrange
+      const username = process.env.ADMIN_LOGIN;
+      const password = process.env.ADMIN_PASSWORD;
+
+      // Act
+      const token = await authClient.getToken({ username, password });
+
+      // Assert
+      expect(token).toBeTruthy();
+      expect(typeof token).toBe("string");
+
+      const validationResponse = await authClient.validateToken(token);
+      expect(validationResponse.status()).toBe(200);
+      expect(validationResponse.headers()["content-type"]).toContain(
+        "application/json",
+      );
+
+      const validationResponseBody = await validationResponse.json();
+      expect(validationResponseBody.valid).toBe(true);
+    },
+  );
+
   for (const testCase of negativeLoginTestCases) {
     const { rule, description, payload, expectedError, expectedStatus } =
       testCase;

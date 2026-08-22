@@ -18,4 +18,11 @@ export class AuthClient {
 
     return responseBody.token;
   }
+
+  async validateToken(token?: string) {
+    const validationResponse = await this.request.post("/api/auth/validate", {
+      data: { token },
+    });
+    return validationResponse;
+  }
 }
