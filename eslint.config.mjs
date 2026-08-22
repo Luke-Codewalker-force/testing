@@ -22,7 +22,7 @@ export default [
       ],
 
       // Prevent test.only and test.skip from being committed
-      "no-only-tests/no-only-tests": "on", // Plugin not installed, but left as example
+      "no-only-tests/no-only-tests": "warn", // Plugin not installed, but left as example
     },
   },
   {
