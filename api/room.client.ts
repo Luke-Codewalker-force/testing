@@ -1,16 +1,43 @@
 import { APIRequestContext } from "@playwright/test";
-// TODO: write code! XD
+import { EditRoomData, RoomData } from "./types";
 
 export class RoomClient {
-  constructor(private request: APIRequestContext) {}
+  constructor(
+    private request: APIRequestContext,
+    private apiUrl: string = "/api/room",
+  ) {}
 
-  // getRooms();
+  async getRooms() {
+    const response = await this.request.get(this.apiUrl);
 
-  // getRoomById(id);
+    return response;
+  }
 
-  // createRoom(data, token);
+  async getRoomById(roomId: number) {
+    const response = await this.request.get(`${this.apiUrl}/${roomId}`);
 
-  // deleteRoom(id, token);
+    return response;
+  }
 
-  // editRoom(id, data, token); - PUT
+  async createRoom(roomData: RoomData) {
+    const response = await this.request.post(this.apiUrl, {
+      data: roomData,
+    });
+
+    return response;
+  }
+
+  async deleteRoom(roomId: number) {
+    const response = await this.request.delete(`${this.apiUrl}/${roomId}`);
+
+    return response;
+  }
+
+  async editRoom(editRoomData: EditRoomData) {
+    const response = await this.request.put(
+      `${this.apiUrl}/${editRoomData.roomId}`,
+    );
+
+    return response;
+  }
 }
