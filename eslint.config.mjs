@@ -1,3 +1,5 @@
+import noOnlyTests from "eslint-plugin-no-only-tests";
+
 export default [
   {
     files: ["**/*.{ts,js}"],
@@ -5,11 +7,14 @@ export default [
       ecmaVersion: 2022,
       sourceType: "module",
     },
+    plugins: { "no-only-tests": noOnlyTests },
     rules: {
       // General best practices
       "no-console": ["warn", { allow: ["warn", "error"] }],
       "no-debugger": "error",
       "no-empty": "warn",
+      // Prevent test.only and test.skip from being committed
+      "no-only-tests/no-only-tests": "error",
 
       // Playwright best practices
       "no-restricted-syntax": [
@@ -20,9 +25,6 @@ export default [
           selector: "CallExpression[callee.property.name='wait']",
         },
       ],
-
-      // Prevent test.only and test.skip from being committed
-      "no-only-tests/no-only-tests": "warn", // Plugin not installed, but left as example
     },
   },
   {

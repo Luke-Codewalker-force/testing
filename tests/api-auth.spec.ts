@@ -86,8 +86,8 @@ const loginData: AuthData = {
   password: process.env.ADMIN_PASSWORD,
 };
 
-test.describe("API Tests - Admin", () => {
-  test(
+test.describe.only("API Tests - Admin", () => {
+  test.only(
     "Should successfully login with valid credentials via POST /api/admin/login",
     { tag: ["@smoke", "@regression", "@api", "@auth"] },
     async ({ authClient }) => {
