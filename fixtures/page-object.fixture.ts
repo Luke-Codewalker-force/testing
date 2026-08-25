@@ -2,6 +2,7 @@ import { test as base } from "@playwright/test";
 import { HomePage } from "../pages/home/home.page";
 import { BookingPage } from "../pages/booking/booking.page";
 import { AuthClient } from "../api/auth.client";
+import { RoomClient } from "../api/room.client";
 
 type Fixtures = {
   // pages
@@ -10,6 +11,7 @@ type Fixtures = {
 
   // api
   authClient: AuthClient;
+  roomClient: RoomClient;
 };
 
 export const test = base.extend<Fixtures>({
@@ -21,6 +23,9 @@ export const test = base.extend<Fixtures>({
   },
   authClient: async ({ request }, use) => {
     await use(new AuthClient(request));
+  },
+  roomClient: async ({ request }, use) => {
+    await use(new RoomClient(request));
   },
 });
 
