@@ -2,10 +2,13 @@ import { APIRequestContext } from "@playwright/test";
 import { AuthData } from "./types";
 
 export class AuthClient {
-  constructor(private request: APIRequestContext) {}
+  constructor(
+    private request: APIRequestContext,
+    private authUrl: string = "/api/auth",
+  ) {}
 
   async login({ username, password }: AuthData) {
-    const response = await this.request.post("/api/auth/login", {
+    const response = await this.request.post(`${this.authUrl}/login`, {
       data: { username, password },
     });
 
@@ -20,9 +23,12 @@ export class AuthClient {
   }
 
   async validateToken(token?: string) {
-    const validationResponse = await this.request.post("/api/auth/validate", {
-      data: { token },
-    });
+    const validationResponse = await this.request.post(
+      `${this.authUrl}/validate`,
+      {
+        data: { token },
+      },
+    );
     return validationResponse;
   }
 }
