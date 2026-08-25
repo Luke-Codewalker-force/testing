@@ -1,10 +1,12 @@
 import noOnlyTests from "eslint-plugin-no-only-tests";
+import tsParser from "@typescript-eslint/parser";
 
 export default [
   {
     files: ["**/*.{ts,js}"],
     languageOptions: {
-      ecmaVersion: 2022,
+      parser: tsParser,
+      ecmaVersion: "latest",
       sourceType: "module",
     },
     plugins: { "no-only-tests": noOnlyTests },
@@ -26,6 +28,12 @@ export default [
         },
       ],
     },
+    ignores: [
+      ".husky/**",
+      "node_modules/**",
+      "test-results/**",
+      "playwright-report/**",
+    ],
   },
   {
     files: ["tests/**/*.spec.ts"],
