@@ -2,7 +2,7 @@ import { AuthData } from "../api/types";
 import { test, expect } from "../fixtures/page-object.fixture";
 import { issue, severity, feature } from "allure-js-commons";
 
-type LoginTestCase = {
+type LoginNegativeTestCase = {
   rule: string;
   description: string;
   payload: AuthData;
@@ -10,7 +10,11 @@ type LoginTestCase = {
   expectedError: string;
 };
 
-const negativeLoginTestCases: LoginTestCase[] = [
+type TokenNegativeTestCases = Omit<LoginNegativeTestCase, "payload"> & {
+  payload: string;
+};
+
+const negativeLoginTestCases: LoginNegativeTestCase[] = [
   {
     rule: "REQ-AUTH-01",
     description:
@@ -51,7 +55,36 @@ const negativeLoginTestCases: LoginTestCase[] = [
     expectedStatus: 401,
     expectedError: "Invalid credentials",
   },
+  {
+    rule: "REQ-AUTH-06",
+    description: "Should reject request with empty payload",
+    payload: {},
+    expectedStatus: 401,
+    expectedError: "Invalid credentials",
+  },
 ];
+
+const negativeTokenValidationTestCases: TokenNegativeTestCases[] = [
+  {
+    rule: "REQ-AUTH-07",
+    description: "Should reject request with incorrect token",
+    payload: "iamanincorrecttoken",
+    expectedStatus: 403,
+    expectedError: "Invalid token",
+  },
+  {
+    rule: "REQ-AUTH-08",
+    description: "Should reject request with empty payload",
+    payload: "",
+    expectedStatus: 401,
+    expectedError: "No token provided",
+  },
+];
+
+const loginData: AuthData = {
+  username: process.env.ADMIN_LOGIN,
+  password: process.env.ADMIN_PASSWORD,
+};
 
 test.describe("API Tests - Admin", () => {
   test(
@@ -65,12 +98,8 @@ test.describe("API Tests - Admin", () => {
       severity("critical");
       feature("Authentication API");
 
-      // Arrange
-      const username = process.env.ADMIN_LOGIN;
-      const password = process.env.ADMIN_PASSWORD;
-
       // Act
-      const response = await authClient.login({ username, password });
+      const response = await authClient.login(loginData);
 
       // Assert
       expect(response.status()).toBe(200);
@@ -115,9 +144,9 @@ test.describe("API Tests - Admin", () => {
     },
   );
 
-  for (const testCase of negativeLoginTestCases) {
+  for (const loginTestCase of negativeLoginTestCases) {
     const { rule, description, payload, expectedError, expectedStatus } =
-      testCase;
+      loginTestCase;
 
     test(
       `${rule} ${description}`,
@@ -140,6 +169,43 @@ test.describe("API Tests - Admin", () => {
         );
 
         const responseBody = await response.json();
+        expect(responseBody).toEqual(
+          expect.objectContaining({
+            error: expectedError,
+          }),
+        );
+      },
+    );
+  }
+
+  for (const tokenTestCase of negativeTokenValidationTestCases) {
+    const { rule, description, payload, expectedError, expectedStatus } =
+      tokenTestCase;
+
+    test(
+      `${rule} ${description}`,
+      {
+        tag: ["@smoke", "@regression", "@api", "@auth"],
+      },
+      async ({ authClient }) => {
+        issue(
+          "https://lukaszkowalczykdev.atlassian.net/browse/SCRUM-10",
+          "SCRUM-10",
+        );
+        severity("critical");
+        feature("Authentication API");
+
+        // Act
+        const token = await authClient.getToken(loginData);
+        const tokenValidationResponse = await authClient.validateToken(payload);
+
+        // Assert
+        expect(token).not.toEqual(payload);
+        expect(tokenValidationResponse.status()).toBe(expectedStatus);
+        expect(tokenValidationResponse.headers()["content-type"]).toContain(
+          "application/json",
+        );
+        const responseBody = await tokenValidationResponse.json();
         expect(responseBody).toEqual(
           expect.objectContaining({
             error: expectedError,
