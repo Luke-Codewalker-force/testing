@@ -81,9 +81,9 @@ const negativeTokenValidationTestCases: TokenNegativeTestCases[] = [
   },
 ];
 
-const loginData: PartialAuthCredentials = {
-  username: process.env.ADMIN_LOGIN,
-  password: process.env.ADMIN_PASSWORD,
+const loginData: AuthCredentials = {
+  username: process.env.ADMIN_LOGIN || "",
+  password: process.env.ADMIN_PASSWORD || "",
 };
 
 test.describe("API Tests - Admin", () => {
@@ -122,12 +122,8 @@ test.describe("API Tests - Admin", () => {
       severity("critical");
       feature("Authentication API");
 
-      // Arrange
-      const username = process.env.ADMIN_LOGIN;
-      const password = process.env.ADMIN_PASSWORD;
-
       // Act
-      const token = await authClient.getToken({ username, password });
+      const token = await authClient.getToken(loginData);
 
       // Assert
       expect(token).toBeTruthy();
@@ -160,6 +156,7 @@ test.describe("API Tests - Admin", () => {
         feature("Authentication API");
 
         // Act
+        // @ts-expect-error;
         const response = await authClient.login(payload);
 
         // Assert

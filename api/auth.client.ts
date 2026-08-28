@@ -7,7 +7,7 @@ export class AuthClient {
     private authUrl: string = "/api/auth",
   ) {}
 
-  async login<T = AuthCredentials>(payload: T) {
+  async login(payload: AuthCredentials) {
     const response = await this.request.post(`${this.authUrl}/login`, {
       data: payload,
     });
@@ -15,14 +15,14 @@ export class AuthClient {
     return response;
   }
 
-  async getToken<T = AuthCredentials>(payload: T): Promise<string> {
+  async getToken(payload: AuthCredentials): Promise<string> {
     const response = await this.login(payload);
     const responseBody = await response.json();
 
     return responseBody.token;
   }
 
-  async validateToken<T = string>(token: T) {
+  async validateToken(token: string) {
     const validationResponse = await this.request.post(
       `${this.authUrl}/validate`,
       {
