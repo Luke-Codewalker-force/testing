@@ -1,5 +1,5 @@
 import { APIRequestContext } from "@playwright/test";
-import { AuthData } from "./types";
+import { AuthCredentials } from "../models/auth.schema";
 
 export class AuthClient {
   constructor(
@@ -7,22 +7,22 @@ export class AuthClient {
     private authUrl: string = "/api/auth",
   ) {}
 
-  async login({ username, password }: AuthData) {
+  async login<T = AuthCredentials>(payload: T) {
     const response = await this.request.post(`${this.authUrl}/login`, {
-      data: { username, password },
+      data: payload,
     });
 
     return response;
   }
 
-  async getToken({ username, password }: AuthData): Promise<string> {
-    const response = await this.login({ username, password });
+  async getToken<T = AuthCredentials>(payload: T): Promise<string> {
+    const response = await this.login(payload);
     const responseBody = await response.json();
 
     return responseBody.token;
   }
 
-  async validateToken(token?: string) {
+  async validateToken<T = string>(token: T) {
     const validationResponse = await this.request.post(
       `${this.authUrl}/validate`,
       {

@@ -1,11 +1,11 @@
-import { AuthData } from "../api/types";
 import { test, expect } from "../fixtures/page-object.fixture";
 import { issue, severity, feature } from "allure-js-commons";
+import { AuthCredentials, PartialAuthCredentials } from "../models/auth.schema";
 
 type LoginNegativeTestCase = {
   rule: string;
   description: string;
-  payload: AuthData;
+  payload: PartialAuthCredentials;
   expectedStatus: number;
   expectedError: string;
 };
@@ -81,7 +81,7 @@ const negativeTokenValidationTestCases: TokenNegativeTestCases[] = [
   },
 ];
 
-const loginData: AuthData = {
+const loginData: PartialAuthCredentials = {
   username: process.env.ADMIN_LOGIN,
   password: process.env.ADMIN_PASSWORD,
 };
