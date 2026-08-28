@@ -1,5 +1,5 @@
-import { APIRequestContext } from "@playwright/test";
-import { EditRoomData, RoomData } from "./types";
+import { APIRequestContext } from "@playwright/test"
+import { RoomData, EditRoomData } from "../models/room.schema"
 
 export class RoomClient {
   constructor(
@@ -8,36 +8,34 @@ export class RoomClient {
   ) {}
 
   async getRooms() {
-    const response = await this.request.get(this.apiUrl);
+    const response = await this.request.get(this.apiUrl)
 
-    return response;
+    return response
   }
 
   async getRoomById(roomId: number) {
-    const response = await this.request.get(`${this.apiUrl}/${roomId}`);
+    const response = await this.request.get(`${this.apiUrl}/${roomId}`)
 
-    return response;
+    return response
   }
 
   async createRoom(roomData: RoomData) {
     const response = await this.request.post(this.apiUrl, {
       data: roomData,
-    });
+    })
 
-    return response;
+    return response
   }
 
   async deleteRoom(roomId: number) {
-    const response = await this.request.delete(`${this.apiUrl}/${roomId}`);
+    const response = await this.request.delete(`${this.apiUrl}/${roomId}`)
 
-    return response;
+    return response
   }
 
   async editRoom(editRoomData: EditRoomData) {
-    const response = await this.request.put(
-      `${this.apiUrl}/${editRoomData.roomId}`,
-    );
+    const response = await this.request.put(`${this.apiUrl}/${editRoomData}`)
 
-    return response;
+    return response
   }
 }
